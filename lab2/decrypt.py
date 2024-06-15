@@ -8,7 +8,6 @@ eigenvalues, eigenvectors = np.linalg.eig(key_matrix)
 diagonalized_key_matrix = np.dot(np.dot(eigenvectors, np.diag(eigenvalues)), np.linalg.inv(eigenvectors))
 
 def encrypt_massage(message):
-    
     message_vector = np.array([ord(char) for char in message])
     encrypted_vector = np.dot(diagonalized_key_matrix, message_vector)
     
@@ -17,6 +16,7 @@ def encrypt_massage(message):
 def decrypt_message(encrypted_vector):
     decrypted_vector = np.dot(np.linalg.inv(diagonalized_key_matrix), encrypted_vector)
     decrypted_message = ''.join([chr(int(np.round(num))) for num in decrypted_vector.real])
+    
     return decrypted_message
 
 
