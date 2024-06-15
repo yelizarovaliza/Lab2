@@ -43,21 +43,52 @@ image_transformed = pca.fit_transform(image_matrix)
 image_reconstructed = pca.inverse_transform(image_transformed)
 
 # Візуалізація оригінального, ч/б та реконструйованого 
-plt.figure(figsize=(18, 6))
+plt.figure(figsize=(12, 4))
 
 plt.subplot(1, 3, 1)
 plt.title('Original Image')
 plt.imshow(image_raw)
-plt.axis('off')
+plt.axis('on')
 
 plt.subplot(1, 3, 2)
-plt.title('Original Image')
+plt.title('Black&white Image')
 plt.imshow(image_bw, cmap='gray')
-plt.axis('off')
+plt.axis('on')
 
 plt.subplot(1, 3, 3)
-plt.title('Reconstructed Image with {} Components'.format(num_components))
+plt.title('Reconstructed with {} Components'.format(num_components))
 plt.imshow(image_reconstructed, cmap='gray')
-plt.axis('off')
+plt.axis('on')
 
 plt.show()
+
+
+def reconstruct_and_plot_image(n_components):
+    pca = PCA(n_components=n_components)
+    image_transformed = pca.fit_transform(image_matrix)
+    image_reconstructed = pca.inverse_transform(image_transformed)
+    
+    plt.figure(figsize=(12, 4))
+    
+    plt.subplot(1, 3, 1)
+    plt.title('Reconstructed with {} Components'.format(n_components // 2))
+    plt.imshow(image_reconstructed, cmap='gray')
+    plt.axis('on')
+    
+    plt.subplot(1, 3, 2)
+    plt.title('Reconstructed with {} Components'.format(n_components))
+    plt.imshow(image_reconstructed, cmap='gray')
+    plt.axis('on')
+    
+    plt.subplot(1, 3, 3)
+    plt.title('Reconstructed with {} Components'.format(n_components * 2))
+    plt.imshow(image_reconstructed, cmap='gray')
+    plt.axis('on')
+    
+    plt.show()
+
+# реконструкція зображення для різної кількості компонент
+components_list = [16, 80]
+
+for n in components_list:
+    reconstruct_and_plot_image(n)
